@@ -11,6 +11,7 @@ class MusicPlayer:
         self.root = root
         self.root.title("Advanced Music Player")
         self.root.geometry("800x600")
+        self.root.configure(bg="#282828")
 
         pygame.mixer.init()
 
@@ -23,50 +24,68 @@ class MusicPlayer:
         self.create_widgets()
 
     def create_widgets(self):
-        self.song_label = tk.Label(self.root, text="No song playing", font=("Arial", 14))
+        # Song Label
+        self.song_label = tk.Label(self.root, text="No song playing", font=("Arial", 14), fg="white", bg="#282828")
         self.song_label.pack(pady=20)
 
-        self.load_button = tk.Button(self.root, text="Load Song", command=self.load_song, width=15)
-        self.load_button.pack(side='left', padx=10, pady=20)
+        # Buttons Frame
+        buttons_frame = tk.Frame(self.root, bg="#282828")
+        buttons_frame.pack(pady=20)
 
-        self.play_button = tk.Button(self.root, text="Play", command=self.play_song, width=15)
-        self.play_button.pack(side='left', padx=10, pady=20)
+        # Load Button
+        self.load_button = tk.Button(buttons_frame, text="Load Song", command=self.load_song, width=15, bg="#4CAF50", fg="white")
+        self.load_button.grid(row=0, column=0, padx=10)
 
-        self.pause_button = tk.Button(self.root, text="Pause", command=self.pause_song, width=15)
-        self.pause_button.pack(side='left', padx=10, pady=20)
+        # Play Button
+        self.play_button = tk.Button(buttons_frame, text="Play", command=self.play_song, width=15, bg="#2196F3", fg="white")
+        self.play_button.grid(row=0, column=1, padx=10)
 
-        self.stop_button = tk.Button(self.root, text="Stop", command=self.stop_song, width=15)
-        self.stop_button.pack(side='left', padx=10, pady=20)
+        # Pause Button
+        self.pause_button = tk.Button(buttons_frame, text="Pause", command=self.pause_song, width=15, bg="#FFC107", fg="white")
+        self.pause_button.grid(row=0, column=2, padx=10)
 
-        self.next_button = tk.Button(self.root, text="Next", command=self.next_song, width=15)
-        self.next_button.pack(side='left', padx=10, pady=20)
+        # Stop Button
+        self.stop_button = tk.Button(buttons_frame, text="Stop", command=self.stop_song, width=15, bg="#F44336", fg="white")
+        self.stop_button.grid(row=0, column=3, padx=10)
 
-        self.previous_button = tk.Button(self.root, text="Previous", command=self.previous_song, width=15)
-        self.previous_button.pack(side='left', padx=10, pady=20)
+        # Next Button
+        self.next_button = tk.Button(buttons_frame, text="Next", command=self.next_song, width=15, bg="#9E9E9E", fg="white")
+        self.next_button.grid(row=0, column=4, padx=10)
 
-        self.shuffle_button = tk.Button(self.root, text="Shuffle", command=self.toggle_shuffle, width=15)
-        self.shuffle_button.pack(side='left', padx=10, pady=20)
+        # Previous Button
+        self.previous_button = tk.Button(buttons_frame, text="Previous", command=self.previous_song, width=15, bg="#9E9E9E", fg="white")
+        self.previous_button.grid(row=0, column=5, padx=10)
 
-        self.repeat_button = tk.Button(self.root, text="Repeat", command=self.toggle_repeat, width=15)
-        self.repeat_button.pack(side='left', padx=10, pady=20)
+        # Shuffle Button
+        self.shuffle_button = tk.Button(buttons_frame, text="Shuffle", command=self.toggle_shuffle, width=15, bg="#9E9E9E", fg="white")
+        self.shuffle_button.grid(row=0, column=6, padx=10)
 
-        self.volume_slider = tk.Scale(self.root, from_=0, to=1, resolution=0.1, orient='horizontal', command=self.adjust_volume)
+        # Repeat Button
+        self.repeat_button = tk.Button(buttons_frame, text="Repeat", command=self.toggle_repeat, width=15, bg="#9E9E9E", fg="white")
+        self.repeat_button.grid(row=0, column=7, padx=10)
+
+        # Volume Slider
+        self.volume_slider = tk.Scale(self.root, from_=0, to=1, resolution=0.1, orient='horizontal', command=self.adjust_volume, bg="#282828", fg="white", troughcolor="#4CAF50")
         self.volume_slider.set(0.5)
-        self.volume_slider.pack(side='left', padx=10, pady=20)
+        self.volume_slider.pack(pady=20)
 
-        self.playlist_box = tk.Listbox(self.root, width=50, height=15)
+        # Playlist Box
+        self.playlist_box = tk.Listbox(self.root, width=50, height=15, bg="#333333", fg="white", selectbackground="#4CAF50")
         self.playlist_box.pack(pady=20)
 
-        self.save_playlist_button = tk.Button(self.root, text="Save Playlist", command=self.save_playlist, width=15)
+        # Save Playlist Button
+        self.save_playlist_button = tk.Button(self.root, text="Save Playlist", command=self.save_playlist, width=15, bg="#2196F3", fg="white")
         self.save_playlist_button.pack(side='left', padx=10, pady=20)
 
-        self.load_playlist_button = tk.Button(self.root, text="Load Playlist", command=self.load_playlist, width=15)
+        # Load Playlist Button
+        self.load_playlist_button = tk.Button(self.root, text="Load Playlist", command=self.load_playlist, width=15, bg="#2196F3", fg="white")
         self.load_playlist_button.pack(side='left', padx=10, pady=20)
 
-        self.duration_label = tk.Label(self.root, text="Duration: 00:00", font=("Arial", 12))
+        # Duration and Elapsed Labels
+        self.duration_label = tk.Label(self.root, text="Duration: 00:00", font=("Arial", 12), fg="white", bg="#282828")
         self.duration_label.pack(pady=10)
 
-        self.elapsed_label = tk.Label(self.root, text="Elapsed: 00:00", font=("Arial", 12))
+        self.elapsed_label = tk.Label(self.root, text="Elapsed: 00:00", font=("Arial", 12), fg="white", bg="#282828")
         self.elapsed_label.pack(pady=10)
 
     def load_song(self):
